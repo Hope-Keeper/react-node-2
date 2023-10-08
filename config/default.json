@@ -1,0 +1,10 @@
+{
+
+
+    "name":"authproject",
+    "db":{
+        "address":"mongodb://0.0.0.0:27017/authProject"
+    },
+    "jwt_key":"jugfew8745tgfvhbhcsa7346394rhujdsha97347tgfeofihadig4554764387453ikhfWFCGweiuftgwe"
+
+}
