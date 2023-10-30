@@ -18,7 +18,7 @@ class Home extends Component {
     );
     console.log(res);*/
 
-    try {
+    /* try {
       await fetch(
         "http://localhost:8080/http://0.0.0.0:5000/api/auth/register",
         {
@@ -36,15 +36,15 @@ class Home extends Component {
         .then((response) => response.json())
         .then((data) => console.log("data :", data))
         .catch((err) => console.error("ohhhh nooo", err));
-      /*if (!response.ok) {
-        console.log(response);
-        throw new Error("Network response was not ok");
-      }*/
+      // if (!response.ok) {
+      //   console.log(response);
+      //   throw new Error("Network response was not ok");
+      // }
 
       // const data = await response.json();
     } catch (error) {
       console.log("Error:", error);
-    }
+    }*/
   };
 
   render() {

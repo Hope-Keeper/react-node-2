@@ -54,6 +54,10 @@ module.exports = new (class extends controller {
     }
     //creating webtoken
     const token = jwt.sign({ _id: user.id }, config.get("jwt_key"));
-    this.response({ res, message: "succesfully logged in", data: { token } });
+    this.response({
+      res,
+      message: "succesfully logged in",
+      data: { token, user: _.pick(user, ["_id", "name", "email"]) },
+    });
   }
 })();

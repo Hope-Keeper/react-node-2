@@ -1,27 +1,16 @@
 import { useEffect } from "react";
-import { Route,Redirect, useParams } from "react-router-dom";
-import Dashboard from "./dashboard";
+import { Route, Redirect, useParams } from "react-router-dom";
+import Dashboard from "./Dashboard/dashboard";
 import Home from "./Home/home";
 
-
-
-
-
 const Protect = (props) => {
+  const isAuth = localStorage.getItem("token");
 
-const isAuth=localStorage.getItem('token');
+  useEffect(() => {
+    //console.log(props.id);
+  }, []);
 
-useEffect(()=>{
-console.log(props.id);
-},[])
- 
- 
- 
-    return ( 
-       
-            isAuth? <Dashboard/> :<Home /> 
-        
-     );
-}
- 
+  return isAuth ? <Dashboard /> : <Home />;
+};
+
 export default Protect;

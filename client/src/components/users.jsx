@@ -6,19 +6,64 @@ class Users extends Component {
   state = { users: [], isloading: true };
 
   async componentDidMount() {
-    const response = await axios.get("https://reqres.in/api/users");
-    //console.log(response);
-    setTimeout(() => {
-      this.setState({ users: response.data.data, isloading: false });
-    }, 3000);
+    try {
+      await fetch("http://localhost:8080/http://0.0.0.0:5000/api/users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("data :", data);
+          this.setState({ users: data.data, isloading: false });
+        })
+        .catch((err) => console.error("ohhhh nooo", err));
+      // if (!response.ok) {
+      //   console.log(response);
+      //   throw new Error("Network response was not ok");
+      // }
+
+      // const data = await response.json();
+    } catch (error) {
+      console.log("Error:", error);
+    }
+
+    /*  try {
+      await fetch("https://reqres.in/api/users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.state.account),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.setState({ users: data.data, isloading: false });
+        })
+        .catch((err) => {
+          // this.setState({ errors: ["validation error"] });
+          console.error("ohhhh nooo fuck users", err);
+        });
+    } catch (error) {
+      console.log("Error:", error);
+    }*/
+
+    // const response = await axios.get(
+    //   "http://localhost:8080/https://reqres.in/api/users"
+    // );
+    // //console.log(response);
+    // setTimeout(() => {
+    //   this.setState({ users: response.data.data, isloading: false });
+    // }, 3000);
   }
 
   render() {
     return (
       <>
-        <button onClick={this.handleCreate} className="btn btn-lg btn-primary">
+        {/* <button onClick={this.handleCreate} className="btn btn-lg btn-primary">
           Create
-        </button>
+        </button> */}
 
         <div className="row">
           {this.state.isloading ? (
@@ -100,10 +145,28 @@ class Users extends Component {
     this.setState({ users: updatedUser });
   };
   handleDelete = async (user) => {
-    const response = await axios.delete(
+    console.log(user._id);
+    try {
+      await fetch(
+        `http://localhost:8080/http://0.0.0.0:5000/api/users/${user._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => console.log("data :", data.message))
+        .catch((err) => console.error("ohhhh nooo", err));
+    } catch (error) {
+      console.log("Error:", error);
+    }
+
+    /* const response = await axios.delete(
       `https://reqres.in/api/users/${user.id}`
-    );
-    const newUsers = this.state.users.filter((item) => item.id != user.id);
+    );*/
+    const newUsers = this.state.users.filter((item) => item._id != user._id);
     this.setState({ users: newUsers });
   };
 }

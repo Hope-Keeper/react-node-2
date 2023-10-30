@@ -32,7 +32,7 @@ const Navbar = (props) => {
             ) : (
               <>
                 <li className="nav-item">
-                  <NavLink className="nav-link" to="/dashboard">
+                  <NavLink className="nav-link" to="/api/user">
                     Dashboared
                   </NavLink>
                 </li>

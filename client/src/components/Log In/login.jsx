@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { Component, createRef } from "react";
-import Input from "./input";
+import Input from "../input";
 import "./login.css";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ class Login extends Component {
   };
 
   schema = yup.object().shape({
-    email: yup.string().email("invalid!!!").required(),
+    email: yup.string().email("invalid email!!!").required(),
     password: yup.string().min(4, "pass word should be atleast 4 char!!"),
   });
 
@@ -48,28 +48,37 @@ class Login extends Component {
     console.log(result);
     if (result) {
       try {
-        this.setState({ sending: true });
-        const res = await axios.post(
-          "http://0.0.0.0:5000/api/auth/login",
-          result
-        );
+        await fetch(
+          "http://localhost:8080/http://0.0.0.0:5000/api/auth/login",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(this.state.account),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data.message);
+            if (data.message == "invalid email or password") {
+              this.setState({ errors: [data.message] });
+            } else {
+              console.log(data.data.token);
+              console.log(data.data.user);
+              localStorage.setItem("token", data.data.token);
 
-        /* const res = await fetch("http://0.0.0.0:5000/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(result),
-        });*/
-
-        console.log(res.data.token);
-        localStorage.setItem("token", res.data.token);
-
-        this.setState({ sending: false, errors: [] });
-        window.location = "/dashboard";
+              this.setState({ sending: false, errors: [] });
+              console.log(data);
+              window.location = "/api/user";
+            }
+          })
+          .catch((err) => {
+            // this.setState({ errors: ["validation error"] });
+            console.error("ohhhh nooo", err);
+          });
       } catch (error) {
-        this.setState({ errors: ["invalid email or pass"] });
-        this.setState({ sending: false });
+        console.log("Error:", error);
       }
     }
   };

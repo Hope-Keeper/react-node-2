@@ -3,7 +3,7 @@
 
     "name":"authproject",
     "db":{
-        "address":"mongodb://0.0.0.0:27017/authProject"
+        "address":"mongodb://0.0.0.0:27017/React-Node2-project"
     },
     "jwt_key":"jugfew8745tgfvhbhcsa7346394rhujdsha97347tgfeofihadig4554764387453ikhfWFCGweiuftgwe"
 

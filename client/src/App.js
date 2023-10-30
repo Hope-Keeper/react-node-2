@@ -4,15 +4,15 @@ import { Route, Routes } from "react-router-dom";
 
 import Users from "./components/users.jsx";
 
-import Login from "./components/login.jsx";
+import Login from "./components/Log In/login.jsx";
 
 import Register from "./components/Sign up/sign up.jsx";
 
 import Home from "./components/Home/home.jsx";
 import User from "./components/user.jsx";
 import NotFound from "./components/notFound.jsx";
-import Dashboard from "./components/dashboard.jsx";
-import Logout from "./components/logout.jsx";
+import Dashboard from "./components/Dashboard/dashboard.jsx";
+import Logout from "./components/Log Out/logout.jsx";
 import Protect from "./components/protect.jsx";
 
 class App extends Component {
@@ -44,7 +44,7 @@ class App extends Component {
             <Route path="api/users/:id" element={<User />} />
             <Route path="api/users" element={<Users />} />
 
-            <Route path="/dashboard" element={<Protect />} />
+            <Route path="/api/user" element={<Protect />} />
 
             <Route path="api/auth/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
